@@ -3,12 +3,14 @@ import Link from 'next/link'
 import HallmarkSection from './HallmarkSection'
 import MapModal from './MapModal'
 
-import { convertStringToHTML, getImagePath } from '@/lib/utils'
+import { convertStringToHTML, convertToSlug, getImagePath } from '@/lib/utils'
 interface IClinicCardProps {
   clinic: ICompanyProps
 }
 const ClinicCardVertical: React.FC<IClinicCardProps> = ({ clinic }) => {
   const iframe = convertStringToHTML(clinic.location ? clinic.location : 'No location data')
+
+  const slug = convertToSlug(clinic.name)
 
   return (
     <div className="group col-span-1 cursor-pointer rounded-sm border p-2 shadow-sm">
@@ -48,7 +50,7 @@ const ClinicCardVertical: React.FC<IClinicCardProps> = ({ clinic }) => {
           </div>
         </Link>
         <Link
-          href={`/clinics/${clinic.id}`}
+          href={`/clinics/${slug}-${clinic.id}`}
           className="text-md  cursor-pointer  truncate  font-semibold  hover:text-[#009fb7]/90 "
         >
           {clinic.name}
