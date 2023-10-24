@@ -29,8 +29,15 @@ To learn more about Next.js, take a look at the following resources:
 
 You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
 
-## Deploy on Vercel
+## Lib
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+- Tailwindcss for styling. [Tailwindcss Documentation](https://tailwindcss.com/docs/installation)
+- Radix-ui for UI component library. [RadixUI Documentation](https://www.radix-ui.com/primitives/docs/overview/introduction)
+- Lucide React for svg icons library. [Lucide Documentation](https://lucide.dev/guide/packages/lucide-react)
+- Axios for HTTP client. [Axios Documentation](https://axios-http.com/docs/intro)
+- React Hook Form for Form management. [RHF Documentation](https://react-hook-form.com/)
+- Zod for validation. [Zod Documentation](https://zod.dev/)
+- Date Fns for datetime management . [Date Fns Documentation](https://date-fns.org/)
+- React Hot Toast for React notifications. [React Hot Toast Documentation](https://react-hot-toast.com/)
+- Next-Themes for Dark Theme supported. [Next-Themes Documentation](https://www.npmjs.com/package/next-themes)
+- Next Auth for authentication solution. [Next Auth Documentation](https://www.npmjs.com/package/next-themes)
