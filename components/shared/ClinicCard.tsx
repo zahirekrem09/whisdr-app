@@ -2,7 +2,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import HallmarkSection from './HallmarkSection'
 import MapModal from './MapModal'
-import { cn, convertStringToHTML, getImagePath } from '@/lib/utils'
+import { cn, convertStringToHTML, convertToSlug, getImagePath } from '@/lib/utils'
 
 interface IClinicCardProps {
   clinic: ICompanyProps
@@ -10,6 +10,8 @@ interface IClinicCardProps {
 }
 const ClinicCard: React.FC<IClinicCardProps> = ({ clinic, className }) => {
   const iframe = convertStringToHTML(clinic.location ? clinic.location : 'No location data')
+
+  const slug = convertToSlug(clinic.name)
 
   return (
     <div
@@ -52,14 +54,16 @@ const ClinicCard: React.FC<IClinicCardProps> = ({ clinic, className }) => {
           9.9
         </span>
       </div>
-      <div className="flex flex-1 flex-col gap-3">
-        <Link
-          href={`/clinics/${clinic.id}`}
-          className="text-md cursor-pointer truncate font-semibold  hover:text-[#009fb7]/90 "
-        >
-          {clinic.name}
-        </Link>
-        <MapModal title={`${clinic.countryName}, ${clinic?.cityName}`} iframe={iframe} />
+      <div className="flex   flex-1 flex-col justify-between gap-3">
+        <div className="flex flex-col gap-2">
+          <Link
+            href={`/clinics/${slug}-${clinic.id}`}
+            className="text-md cursor-pointer truncate font-semibold  hover:text-[#009fb7]/90 "
+          >
+            {clinic.name}
+          </Link>
+          <MapModal title={`${clinic.countryName}, ${clinic?.cityName}`} iframe={iframe} />
+        </div>
 
         <HallmarkSection hallmarks={clinic.hallmarks ?? ''} />
       </div>

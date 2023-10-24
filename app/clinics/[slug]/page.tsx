@@ -1,6 +1,6 @@
 import Image from 'next/image'
 import { notFound } from 'next/navigation'
-
+import { Metadata } from 'next'
 import { SearchSection } from '@/components/shared/SearchSection'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import ClinicSlider from '@/components/shared/ClinicSlider'
@@ -10,24 +10,31 @@ import MapModal from '@/components/shared/MapModal'
 import { convertStringToHTML, getImagePath } from '@/lib/utils'
 import { getCompanyById, getGallery } from '../../_actions/getCompanies'
 import { getHallmarks } from '@/app/_actions/hallmarks'
-//TODO: Id yerıne slug artı ıd alınıcak
-interface ClinicPageProps {
+
+interface IClinicPageProps {
   params: {
-    clinicId: string
+    slug: string
   }
 }
 
-//TODO metadata slug alanına gore duzenlenecek
+export async function generateMetadata({ params }: IClinicPageProps): Promise<Metadata> {
+  // read route params
+  const slug = `Whisdr | ${params.slug}`
+  return {
+    title: slug,
+  }
+}
 
-const ClinicPage = async ({ params }: ClinicPageProps) => {
+const ClinicPage = async ({ params }: IClinicPageProps) => {
+  const companyId = params.slug.split('-').slice(-1)[0]
   let clinic
   try {
-    clinic = await getCompanyById(params.clinicId)
+    clinic = await getCompanyById(companyId)
   } catch (error) {
     notFound()
   }
 
-  const [images, hallmarks] = await Promise.all([getGallery(params.clinicId), getHallmarks()])
+  const [images, hallmarks] = await Promise.all([getGallery(companyId), getHallmarks()])
 
   const iframe = convertStringToHTML(clinic.location ? clinic.location : 'No location data')
 
