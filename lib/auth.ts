@@ -1,4 +1,4 @@
-import NextAuth, { AuthOptions, getServerSession } from 'next-auth'
+import NextAuth, { AuthOptions, User, getServerSession } from 'next-auth'
 import CredentialsProvider from 'next-auth/providers/credentials'
 import httpClient from './httpClient'
 
@@ -15,34 +15,22 @@ export const authOptions: AuthOptions = {
           throw new Error('Invalid credentials')
         }
 
-        // You need to provide your own logic here that takes the credentials
-        // submitted and returns either a object representing a user or value
-        // that is false/null if the credentials are invalid.
-        // e.g. return { id: 1, name: 'J Smith', email: 'jsmith@example.com' }
-        // You can also use the `req` object to obtain additional parameters
-        // (i.e., the request IP address)
+        try {
+          const res = await httpClient.post('user/login', {
+            username: credentials.email,
+            password: credentials.password,
+          })
 
-        const res = await httpClient.post('user/login', {
-          username: credentials.email,
-          password: credentials.password,
-        })
-
-        const token = res.data
-
-        const userRes = await httpClient.get('user/1', {
-          headers: {
-            Authorization: token,
-          },
-        })
-        const user = userRes.data
-        // If no error and we have user data, return it
-        // if (res.ok && user) {
-        //   return user
-        // }
-        console.log({ token, user })
-        //TODO: token decode edilicek veya loginde user datasi da istenewcek
-        return token
-        // Return null if user data could not be retrieved
+          const jwt = res.data
+          // return user credentials together with jwt
+          if (jwt)
+            return {
+              email: credentials.email,
+              jwt,
+            } as User
+        } catch (error) {
+          throw new Error('Invalid credentials')
+        }
         return null
       },
     }),
@@ -55,26 +43,21 @@ export const authOptions: AuthOptions = {
     strategy: 'jwt',
   },
   callbacks: {
-    // Ref: https://authjs.dev/guides/basics/role-based-access-control#persisting-the-role
-    async jwt({ token, user, trigger, session }) {
-      if (user) {
-        token.role = user.role
-        token.id = user.id
-        token.name = user.name
+    async jwt({ token, user, trigger, session, account }) {
+      if (user && account) {
+        token['user'] = user
+        token['jwt'] = user.jwt
+        return token
       }
-      if (trigger === 'update' && session?.user?.name) {
-        // Note, that `session` can be any arbitrary object, remember to validate it!
-        token.name = session?.user?.name
-      }
+
       return token
     },
     // If you want to use the role in client components
     async session({ session, token }) {
-      if (session?.user) {
-        session.user.role = token.role
-        session.user.id = token.id
-        session.user.name = token.name
+      if (token) {
+        session.jwt = token.jwt as string
       }
+
       return session
     },
   },
