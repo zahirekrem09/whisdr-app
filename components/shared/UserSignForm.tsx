@@ -4,20 +4,18 @@ import { cn } from '@/lib/utils'
 import { signIn } from 'next-auth/react'
 import * as React from 'react'
 import { FC } from 'react'
+import toast from 'react-hot-toast'
 
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 
 import { Button } from '../ui/button'
 import { useRouter } from 'next/navigation'
-
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../ui/card'
-
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '../ui/form'
-
 import { Input } from '../ui/input'
-
 import { LoginFormValues, loginFormSchema } from '@/lib/schema/login'
+
 interface IUserSignFormProps extends React.HTMLAttributes<HTMLDivElement> {}
 
 const UserSignForm: FC<IUserSignFormProps> = ({ className, ...props }) => {
@@ -39,21 +37,20 @@ const UserSignForm: FC<IUserSignFormProps> = ({ className, ...props }) => {
     signIn('credentials', {
       ...data,
       redirect: false,
-      // callbackUrl: '/dashboard',
+      // callbackUrl: '/',
     })
       .then(callback => {
         setIsLoading(false)
         if (callback?.error) {
-          // return toast.error(callback.error)
-          console.log({ callback })
+          return toast.error(callback.error)
         }
         if (callback?.ok) {
-          // toast.success('Logged in')
-          console.log({ callback })
-          // router.refresh()
+          toast.success('Logged in')
+          router.push('/')
+          router.refresh()
         }
       })
-      .catch(err => console.log({ err }))
+      .catch(err => console.error({ err }))
   }
 
   return (
@@ -116,7 +113,6 @@ const UserSignForm: FC<IUserSignFormProps> = ({ className, ...props }) => {
               />
             </div>
             <Button
-              // isLoading={isLoading}
               type="button"
               onClick={form.handleSubmit(onSubmit)}
               className="w-full"

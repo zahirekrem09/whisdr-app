@@ -5,12 +5,14 @@ import { JWT, DefaultJWT } from 'next-auth/jwt'
 
 declare module 'next-auth' {
   interface User extends DefaultUser {
-    role: string
+    role?: string
+    jwt?: string
   }
   interface Session {
     user: User & {
       id: string
     }
+    jwt?: string
   }
 }
 
