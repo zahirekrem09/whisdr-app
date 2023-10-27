@@ -32,8 +32,10 @@ const ClinicsSection: React.FC<IClinicsSection> = ({ clinics, isSeachPage = fals
           })}
         </div>
       ) : (
-        <div
-          className="
+        <>
+          <h4 className=" mb-4 font-bold ">Highly Rating Clinics</h4>
+          <div
+            className="
             grid
             grid-cols-1 
             gap-8 
@@ -44,11 +46,12 @@ const ClinicsSection: React.FC<IClinicsSection> = ({ clinics, isSeachPage = fals
             xl:grid-cols-5
             2xl:grid-cols-6
           "
-        >
-          {clinics.map(clinic => {
-            return <ClinicCardVertical key={clinic.id} clinic={clinic} />
-          })}
-        </div>
+          >
+            {clinics.map(clinic => {
+              return <ClinicCardVertical key={clinic.id} clinic={clinic} />
+            })}
+          </div>
+        </>
       )}
     </Container>
   )

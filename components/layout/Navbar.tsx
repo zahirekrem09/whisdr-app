@@ -17,7 +17,7 @@ const Navbar: React.FC<INavbarProps> = ({}) => {
     getCategoriesSelect()
   }, [])
   return (
-    <header className="fixed z-10 w-full bg-white shadow-sm">
+    <header className="bg-background fixed z-10  w-full shadow-sm">
       <div
         className="
           border-b-[1px] 
