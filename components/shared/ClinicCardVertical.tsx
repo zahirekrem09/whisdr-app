@@ -16,7 +16,7 @@ const ClinicCardVertical: React.FC<IClinicCardProps> = ({ clinic }) => {
     <div className="group col-span-1 cursor-pointer rounded-sm border p-2 shadow-sm">
       <div className="flex w-full flex-col gap-2">
         <Link
-          href={`/clinics/${clinic.id}`}
+          href={`/clinics/${slug}-${clinic.id}`}
           className="
             relative 
             aspect-square 

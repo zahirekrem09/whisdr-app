@@ -21,7 +21,7 @@ const ClinicCard: React.FC<IClinicCardProps> = ({ clinic, className }) => {
       )}
     >
       <Link
-        href={`/clinics/${clinic.id}`}
+        href={`/clinics/${slug}-${clinic.id}`}
         className="
             relative 
             aspect-square 
