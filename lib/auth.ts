@@ -26,6 +26,7 @@ export const authOptions: AuthOptions = {
           if (jwt)
             return {
               email: credentials.email,
+              role: 'ADMIN',
               jwt,
             } as User
         } catch (error) {
@@ -47,6 +48,7 @@ export const authOptions: AuthOptions = {
       if (user && account) {
         token['user'] = user
         token['jwt'] = user.jwt
+        token['role'] = user?.role as string
         return token
       }
 
@@ -56,6 +58,7 @@ export const authOptions: AuthOptions = {
     async session({ session, token }) {
       if (token) {
         session.jwt = token.jwt as string
+        session.user.role = token.role
       }
 
       return session

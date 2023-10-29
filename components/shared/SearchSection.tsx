@@ -196,12 +196,7 @@ export function SearchSection({
         </Form>
       </CardContent>
       <CardFooter>
-        <Button
-          onClick={form.handleSubmit(onSubmit)}
-          type="button"
-          variant="primary"
-          className="w-full"
-        >
+        <Button onClick={form.handleSubmit(onSubmit)} type="button" className="w-full">
           <SearchIcon className="mr-2 h-4 w-4" /> Search
         </Button>
       </CardFooter>

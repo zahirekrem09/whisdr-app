@@ -7,7 +7,7 @@ interface IHallmarkSectionProps {
 }
 const HallmarkSection: React.FC<IHallmarkSectionProps> = ({ hallmarks }) => {
   return (
-    <div className="ml-auto flex flex-wrap gap-1">
+    <div className="ml-auto mt-auto  flex flex-wrap gap-1 ">
       {hallmarks
         ? hallmarks.split(',').map(hallmark => (
             <Badge key={hallmark} variant="primary">
