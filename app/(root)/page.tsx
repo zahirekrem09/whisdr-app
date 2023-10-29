@@ -1,12 +1,23 @@
 import { getCompanies } from '../_actions/getCompanies'
-import ClinicsSection from '@/components/shared/ClinicsSection'
+
 import CategoriesTypesSection from '@/components/shared/CategoriesTypesSection'
 import { getCategories } from '../_actions/getCategories'
 
 import EmptyState from '@/components/shared/EmptyState'
-import CountrySection from '@/components/shared/CountrySection'
-import HallmarksListSection from '@/components/shared/HallmarksListSection'
+
 import { getHallmarks } from '../_actions/hallmarks'
+
+import dynamic from 'next/dynamic'
+
+const HallmarksListSection = dynamic(() => import('@/components/shared/HallmarksListSection'), {
+  ssr: false,
+})
+const CountrySection = dynamic(() => import('@/components/shared/CountrySection'), {
+  ssr: false,
+})
+const ClinicsSection = dynamic(() => import('@/components/shared/ClinicsSection'), {
+  ssr: false,
+})
 
 interface IHomeProps {
   searchParams: ICompanyParams
@@ -21,8 +32,8 @@ const Home = async ({ searchParams }: IHomeProps) => {
     <>
       <CategoriesTypesSection categories={categories} />
       <div className="flex flex-col gap-10">
-        {/* <CountrySection />
-        <HallmarksListSection hallmarks={hallmarks} /> */}
+        <CountrySection />
+        <HallmarksListSection hallmarks={hallmarks} />
         {companies.length === 0 ? <EmptyState showReset /> : <ClinicsSection clinics={companies} />}
       </div>
     </>

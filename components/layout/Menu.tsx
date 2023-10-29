@@ -3,7 +3,6 @@
 import React from 'react'
 import { ModeToggle } from '../shared/ModeToggle'
 import { UserDropdown } from '../shared/UserDropdown'
-import { getCurrentUser } from '@/lib/session'
 import { useSession } from 'next-auth/react'
 
 const Menu = () => {

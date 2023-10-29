@@ -1,7 +1,18 @@
+'use client'
+
 import React from 'react'
 import Container from '../ui/container'
 import ClinicCard from './ClinicCard'
 import ClinicCardVertical from './ClinicCardVertical'
+
+// Import Swiper React components
+import { Swiper, SwiperSlide } from 'swiper/react'
+// import required modules
+import { Pagination, Navigation } from 'swiper/modules'
+// Import Swiper styles
+import 'swiper/css'
+import 'swiper/css/pagination'
+import 'swiper/css/navigation'
 
 interface IClinicsSection {
   clinics: ICompanyProps[]
@@ -34,23 +45,42 @@ const ClinicsSection: React.FC<IClinicsSection> = ({ clinics, isSeachPage = fals
       ) : (
         <>
           <h4 className=" mb-4 font-bold ">Highly Rating Clinics</h4>
-          <div
-            className="
-            grid
-            grid-cols-1 
-            gap-8 
-            pt-4 
-            sm:grid-cols-2 
-            md:grid-cols-3
-            lg:grid-cols-4
-            xl:grid-cols-5
-            2xl:grid-cols-6
-          "
+          <Swiper
+            slidesPerView={1}
+            spaceBetween={16}
+            navigation={true}
+            breakpoints={{
+              '@0.00': {
+                slidesPerView: 1,
+                spaceBetween: 16,
+              },
+              '@0.75': {
+                slidesPerView: 2,
+                spaceBetween: 16,
+              },
+              '@1.00': {
+                slidesPerView: 4,
+                spaceBetween: 16,
+              },
+              '@1.50': {
+                slidesPerView: 5,
+                spaceBetween: 16,
+              },
+            }}
+            modules={[Navigation, Pagination]}
+            className="h-full overflow-hidden "
           >
-            {clinics.map(clinic => {
-              return <ClinicCardVertical key={clinic.id} clinic={clinic} />
-            })}
-          </div>
+            {clinics.length > 0
+              ? clinics.map(clinic => (
+                  <SwiperSlide
+                    className="mb-2 h-full w-full overflow-hidden rounded-lg border shadow-sm shadow-cyan-100 "
+                    key={clinic.id}
+                  >
+                    <ClinicCardVertical key={clinic.id} clinic={clinic} />
+                  </SwiperSlide>
+                ))
+              : null}
+          </Swiper>
         </>
       )}
     </Container>

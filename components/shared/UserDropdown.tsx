@@ -1,7 +1,6 @@
 'use client'
 
 import { signOut } from 'next-auth/react'
-import Image from 'next/image'
 import Link from 'next/link'
 
 import {
@@ -27,20 +26,18 @@ export function UserDropdown({
 }) {
   return (
     <div className="flex items-center gap-4">
-      <div className="flex justify-center">
-        {user ? (
-          <AccountMenu user={user} onOpenChange={onOpenChange} />
-        ) : (
-          <>
-            <Link className={buttonVariants({ variant: 'ghost' })} href={'/'}>
-              Register
-            </Link>
-            <Link className={buttonVariants({ variant: 'primary' })} href={'/login'}>
-              Login
-            </Link>
-          </>
-        )}
-      </div>
+      {user ? (
+        <AccountMenu user={user} onOpenChange={onOpenChange} />
+      ) : (
+        <>
+          <Link className={buttonVariants({ variant: 'ghost' })} href={'/'}>
+            Register
+          </Link>
+          <Link className={buttonVariants({ variant: 'primary' })} href={'/login'}>
+            Login
+          </Link>
+        </>
+      )}
     </div>
   )
 }
@@ -69,7 +66,7 @@ const AccountMenu = ({
         <DropdownMenuItem asChild>
           <Link
             href={`/users/${user.id}`}
-            className="flex items-center gap-1"
+            className="flex cursor-pointer items-center gap-1"
             onClick={() => onOpenChange?.(false)}
           >
             <UserIcon className="mr-2 h-4 w-4" />
@@ -79,7 +76,7 @@ const AccountMenu = ({
         <DropdownMenuItem asChild>
           <Link
             href="/dashboard"
-            className="flex items-center gap-1"
+            className="flex cursor-pointer items-center gap-1"
             onClick={() => onOpenChange?.(false)}
           >
             <LineChart className="mr-2 h-4 w-4" />

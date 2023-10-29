@@ -52,14 +52,14 @@ const CategoryBox: React.FC<ICategoryBoxProps> = ({ icon, label, selected, id })
     <div
       onClick={handleClick}
       className={`
-        flex 
-        cursor-pointer 
+        group 
+        flex
+        w-20
+        cursor-pointer
         flex-col 
-        items-center
+        items-center 
         justify-center
         gap-2
-        border-b-2
-        p-3
         transition hover:text-[#009fb7]
         ${selected ? 'border-b-4  border-b-[#009fb7] ' : 'border-transparent'}
         ${selected ? 'text-[#009fb7]' : 'text-neutral-500'}
@@ -70,19 +70,19 @@ const CategoryBox: React.FC<ICategoryBoxProps> = ({ icon, label, selected, id })
             relative 
             aspect-square 
             w-8
-            overflow-hidden 
             rounded-xl
           "
       >
         <Image
           fill
-          className="
+          className={`
               h-full
               w-full 
-              object-cover 
-              transition 
-              hover:scale-110
-            "
+              object-contain 
+              transition
+              group-hover:opacity-80
+              ${selected ? 'opacity-100' : ' opacity-60 '}
+            `}
           priority={false}
           alt="hair"
           src={imgSrc ?? noImgSrc}

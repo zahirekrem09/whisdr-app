@@ -6,5 +6,5 @@ export const metadata: Metadata = {
 }
 
 export default function SearchLayout({ children }: { children: React.ReactNode }) {
-  return <section className="md:py-18 mx-auto  grow  px-6 py-2 pt-24">{children}</section>
+  return <section className="md:py-18 container mx-auto  grow  px-6 py-2 pt-24">{children}</section>
 }
